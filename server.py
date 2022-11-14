@@ -24,15 +24,8 @@ async def message_handler(msg):
 async def main():
     nc = await get_nats_connection()
 
-    sub = await nc.subscribe("url_getter", cb=message_handler)
+    await nc.subscribe("url_getter", cb=message_handler)
     logger.info("Listening for messages on 'url_getter' subject")
-    while True:  # loop forever
-        try:
-            await asyncio.sleep(1)
-        except KeyboardInterrupt:
-            print("bye...")
-            break
-
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
